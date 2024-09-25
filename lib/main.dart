@@ -10,7 +10,12 @@ class TemperatureConverterApp extends StatelessWidget {
     return MaterialApp(
       title: 'Temperature Converter',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue, // Set primary color to blue
+        scaffoldBackgroundColor: Colors.white, // Set background color to white
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(color: Colors.blue),
+          bodyMedium: TextStyle(color: Colors.blue),
+        ),
       ),
       home: TemperatureConverterScreen(),
     );
@@ -51,6 +56,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text('Temperature Converter'),
+        backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -62,7 +68,11 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Enter Temperature',
+                labelStyle: TextStyle(color: Colors.blue),
                 border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.yellow, width: 2.0),
+                ),
               ),
             ),
             SizedBox(height: 20),
@@ -77,7 +87,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
                   },
                   child: Text('Fahrenheit to Celsius'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _conversionType == 'FtoC' ? Colors.blue : Colors.grey,
+                    foregroundColor: Colors.black, backgroundColor: _conversionType == 'FtoC' ? Colors.yellow : Colors.grey,
                   ),
                 ),
                 ElevatedButton(
@@ -88,7 +98,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
                   },
                   child: Text('Celsius to Fahrenheit'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _conversionType == 'CtoF' ? Colors.blue : Colors.grey,
+                    foregroundColor: Colors.black, backgroundColor: _conversionType == 'CtoF' ? Colors.yellow : Colors.grey,
                   ),
                 ),
               ],
@@ -101,20 +111,27 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
                 }
               },
               child: Text('Convert'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.blue,
+              ),
             ),
             SizedBox(height: 20),
             if (_result.isNotEmpty)
               Text(
                 'Result: $_result',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
               ),
             SizedBox(height: 20),
-            Text('History:', style: TextStyle(fontSize: 18)),
+            Text('History:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
             Expanded(
               child: ListView.builder(
                 itemCount: _history.length,
                 itemBuilder: (context, index) {
-                  return ListTile(title: Text(_history[index]));
+                  return ListTile(
+                    title: Text(_history[index], style: TextStyle(color: Colors.blue)),
+                    tileColor:
+                        index.isEven ? Colors.grey[200] : Colors.white, // Alternate row colors for better readability
+                  );
                 },
               ),
             ),
