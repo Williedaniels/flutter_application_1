@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(TemperatureConverterApp());
+  runApp(const TemperatureConverterApp());
 }
 
 class TemperatureConverterApp extends StatelessWidget {
+  const TemperatureConverterApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,18 +14,21 @@ class TemperatureConverterApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue, // Set primary color to blue
         scaffoldBackgroundColor: Colors.white, // Set background color to white
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           bodyLarge: TextStyle(color: Colors.blue),
           bodyMedium: TextStyle(color: Colors.blue),
         ),
       ),
-      home: TemperatureConverterScreen(),
+      home: const TemperatureConverterScreen(),
     );
   }
 }
 
 class TemperatureConverterScreen extends StatefulWidget {
+  const TemperatureConverterScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _TemperatureConverterScreenState createState() => _TemperatureConverterScreenState();
 }
 
@@ -31,7 +36,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
   String? _conversionType;
   final TextEditingController _temperatureController = TextEditingController();
   String _result = '';
-  List<String> _history = [];
+  final List<String> _history = [];
 
   void _convertTemperature() {
     double temperature = double.tryParse(_temperatureController.text) ?? 0.0;
@@ -55,7 +60,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Temperature Converter'),
+        title: const Text('Temperature Converter'),
         backgroundColor: Colors.blue,
       ),
       body: Padding(
@@ -66,7 +71,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
             TextField(
               controller: _temperatureController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Enter Temperature',
                 labelStyle: TextStyle(color: Colors.blue),
                 border: OutlineInputBorder(),
@@ -75,7 +80,7 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -85,10 +90,10 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
                       _conversionType = 'FtoC';
                     });
                   },
-                  child: Text('Fahrenheit to Celsius'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black, backgroundColor: _conversionType == 'FtoC' ? Colors.yellow : Colors.grey,
                   ),
+                  child: const Text('Fahrenheit to Celsius'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -96,39 +101,39 @@ class _TemperatureConverterScreenState extends State<TemperatureConverterScreen>
                       _conversionType = 'CtoF';
                     });
                   },
-                  child: Text('Celsius to Fahrenheit'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black, backgroundColor: _conversionType == 'CtoF' ? Colors.yellow : Colors.grey,
                   ),
+                  child: const Text('Celsius to Fahrenheit'),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 if (_conversionType != null) {
                   _convertTemperature();
                 }
               },
-              child: Text('Convert'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, backgroundColor: Colors.blue,
               ),
+              child: const Text('Convert'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_result.isNotEmpty)
               Text(
                 'Result: $_result',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
               ),
-            SizedBox(height: 20),
-            Text('History:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
+            const SizedBox(height: 20),
+            const Text('History:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
             Expanded(
               child: ListView.builder(
                 itemCount: _history.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(_history[index], style: TextStyle(color: Colors.blue)),
+                    title: Text(_history[index], style: const TextStyle(color: Colors.blue)),
                     tileColor:
                         index.isEven ? Colors.grey[200] : Colors.white, // Alternate row colors for better readability
                   );
